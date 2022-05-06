@@ -16,7 +16,7 @@ interface Todo {
 /**　Result */
 type Result<T> = [T, undefined] | [undefined, Error]
 
-const FILE_PATH = "./db/todos.json";
+const FILE_PATH = `${Deno.cwd()}/api/db/todos.json`;
 
 
 /**
