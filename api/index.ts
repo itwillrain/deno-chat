@@ -1,16 +1,22 @@
 import { Application, send } from 'https://deno.land/x/oak@v10.5.1/mod.ts';
+import log from './logger.ts'
+
 import api from './api.ts';
 
 const app =  new Application();
-const port = 8000;
+const PORT = 8000;
 
 app.use(api.routes());
+app.use(api.allowedMethods());
 
+
+// Logging
 app.use(async(ctx, next) => {
   await next();
-  console.log(`${ctx.request.method} ${ctx.request.url}`)
+  log.info(`${ctx.request.method} ${ctx.request.url}`)
 })
 
+// Static files
 app.use(async (ctx) => {
   const filePath = ctx.request.url.pathname
   const fileWhitelist = [
@@ -27,7 +33,8 @@ app.use(async (ctx) => {
 })
 
 if(import.meta.main) {
+  log.info(`Starting server on port ${PORT}....`)
   await app.listen({
-    port,
+    port: PORT,
   })
 }
