@@ -14,13 +14,13 @@ app.use(errorHandler)
 // Static files
 app.use(async (ctx) => {
   const filePath = ctx.request.url.pathname
-  // const fileWhitelist = [
-  //   '/index.html'
-  // ]
-  //
-  // if(!fileWhitelist.includes(filePath)) {
-  //   return;
-  // }
+  const fileWhitelist = [
+    '/index.html'
+  ]
+
+  if(!fileWhitelist.includes(filePath)) {
+    return;
+  }
 
   await send(ctx, filePath, {
     root: `${Deno.cwd()}/public`,
