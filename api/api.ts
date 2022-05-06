@@ -3,7 +3,9 @@ import type {IMessage} from './models'
 
 const router = new Router();
 
-const messages: IMessage[] = [];
+const messages: IMessage[] = [{
+  text: 'hoge'
+}];
 
 router
   .get('/', ({response}) => {
