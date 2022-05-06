@@ -23,7 +23,7 @@ const FILE_PATH = "./db/todos.json";
  *　全件取得
  */
 export async function getAll(): Promise<Todo[]> {
-  log.info("FILE_PATH")
+  log.info(FILE_PATH, `${Deno.cwd()}`)
   const data = await Deno.readFile(FILE_PATH);
   log.info({data})
   const decoder = new TextDecoder();
