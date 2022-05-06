@@ -24,6 +24,7 @@ const FILE_PATH = "./db/todos.json";
  */
 export async function getAll(): Promise<Todo[]> {
   const data = await Deno.readFile(FILE_PATH);
+  log.info({data})
   const decoder = new TextDecoder();
   return JSON.parse(decoder.decode(data))
 }
