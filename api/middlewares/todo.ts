@@ -8,7 +8,6 @@ import {getParams, handleError, handleOK} from './utils.ts';
  * @param ctx
  */
 export async function getAll(ctx: RouterContext<'/todos'>) {
-  log.info(ctx);
   const todos = await todoModel.getAll()
   handleOK(ctx, todos);
 }
