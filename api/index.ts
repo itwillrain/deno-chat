@@ -1,23 +1,15 @@
-import { Application, send } from 'https://deno.land/x/oak@v10.5.1/mod.ts';
-import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts";
-
-import log from './logger.ts'
-
-import api from './api.ts';
+import {oakCors, Application, send, log} from './deps.ts';
+import { router } from './router.ts';
+import { logger, errorHandler } from './middlewares/mod.ts';
 
 const app =  new Application();
-const PORT = 8000;
+const PORT =  parseInt( Deno.env.get("PORT") ?? "8000");
 
+app.use(logger)
 app.use(oakCors());
-app.use(api.routes());
-app.use(api.allowedMethods());
-
-
-// Logging
-app.use(async(ctx, next) => {
-  await next();
-  log.info(`${ctx.request.method} ${ctx.request.url}`)
-})
+app.use(router.routes());
+app.use(router.allowedMethods());
+app.use(errorHandler)
 
 // Static files
 app.use(async (ctx) => {

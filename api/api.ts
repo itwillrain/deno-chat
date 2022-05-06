@@ -1,10 +1,11 @@
 import { Router } from 'https://deno.land/x/oak@v10.5.1/mod.ts';
-import type {IMessage} from './models'
+import type {IMessage} from './models/mod.ts'
 
 const router = new Router();
 
 const messages: IMessage[] = [];
 
+// @ts-ignore
 const channel = new BroadcastChannel("chat");
 
 channel.onmessage = (event: MessageEvent) => {
