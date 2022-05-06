@@ -1,4 +1,6 @@
 import { Application, send } from 'https://deno.land/x/oak@v10.5.1/mod.ts';
+import { oakCors } from "https://deno.land/x/cors@v1.2.2/mod.ts";
+
 import log from './logger.ts'
 
 import api from './api.ts';
@@ -6,6 +8,7 @@ import api from './api.ts';
 const app =  new Application();
 const PORT = 8000;
 
+app.use(oakCors());
 app.use(api.routes());
 app.use(api.allowedMethods());
 
