@@ -7,6 +7,8 @@ interface IMessage {
 
 const Home: NextPage = () => {
   const [messages, setMessage] = useState<IMessage[]>([]);
+  const [text, setText] = useState('');
+
   const getMessages = useCallback(async () => {
     const res = await fetch('https://itwillrain-deno-chat.deno.dev/messages');
     const data = await res.json();
@@ -17,7 +19,31 @@ const Home: NextPage = () => {
     getMessages();
   }, []);
 
-  return <>{JSON.stringify(messages)}</>;
+  const onSendMessage = useCallback(async () => {
+    await fetch('https://itwillrain-deno-chat.deno.dev/messages', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        text,
+      }),
+    });
+    setText('');
+    getMessages();
+  }, [text]);
+
+  return (
+    <>
+      <div>{JSON.stringify(messages)}</div>
+      <input
+        type="text"
+        value={text}
+        onChange={(event) => setText(event.target.value)}
+      />
+      <button onClick={onSendMessage}>Add</button>
+    </>
+  );
 };
 
 export default Home;

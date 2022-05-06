@@ -5,6 +5,13 @@ const router = new Router();
 
 const messages: IMessage[] = [];
 
+const channel = new BroadcastChannel("chat");
+
+channel.onmessage = (event: MessageEvent) => {
+  messages.push(event.data);
+};
+
+
 router
   .get('/', ({response}) => {
     response.body = `Chat Server`
@@ -15,6 +22,7 @@ router
   .post('/messages', async ({response, request}) => {
     const message = await request.body().value;
     messages.push(message);
+    channel.postMessage(message);
     response.body = messages;
   })
 
