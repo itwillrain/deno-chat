@@ -5,7 +5,7 @@ export const router = new Router();
 router.get('/', rootHandler.getHome)
 
 // TODOS
-router.get('/todos', todoHandler.getAll)
+router.get('/todos', rootHandler.getHome)
 router.get('/todos/:id', todoHandler.get)
 router.post('/todos', todoHandler.create)
 router.put('/todos/:id', todoHandler.update)
