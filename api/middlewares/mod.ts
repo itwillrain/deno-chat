@@ -3,3 +3,4 @@ export * from './error.ts';
 
 export * as rootHandler from './root.ts'
 export * as todoHandler from './todo.ts'
+export * as databaseHandler from './database.ts'
